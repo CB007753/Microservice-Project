@@ -3,6 +3,7 @@ package com.example.movie_catelog_service.resources;
 import com.example.movie_catelog_service.models.CatalogItem;
 import com.example.movie_catelog_service.models.Movie;
 import com.example.movie_catelog_service.models.Rating;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,12 +17,13 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/catalog")
 public class MovieCatalogResource {
+
+    @Autowired
+    private RestTemplate restTemplate;
+
 //Creating a dummy api
     @RequestMapping("/{userId}")
     public List<CatalogItem> getCatalog(@PathVariable("userId") String userId){
-
-        RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getForObject("http://localhost:8080/movies/foo", Movie.class);
 
         //hard coded movie ratings
         List<Rating> ratings = Arrays.asList(
